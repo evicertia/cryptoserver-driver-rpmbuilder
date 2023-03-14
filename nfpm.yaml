@@ -1,0 +1,29 @@
+# nfpm example config file
+#
+# check https://nfpm.goreleaser.com/configuration for detailed usage
+#
+name: cryptoserver-driver
+arch: amd64
+platform: linux
+version: ${DRIVER_VERSION}-${DRIVER_RELEASE}.evi
+section: default
+priority: optional
+replaces:
+provides:
+depends:
+  - /usr/sbin/weak-modules
+recommends:
+suggests:
+conflicts:
+maintainer: "Pablo Ruiz <pablo.ruiz@gmail.com>"
+description: Utimaco's CryptoServer driver v${DRIVER_VERSION} for kernel ${KERNEL_VERSION}
+vendor: Utimaco
+homepage: https://utimaco.com
+license: GPL 2.0
+scripts:
+  postinstall: /var/tmp/postinstall.sh
+contents:
+- src: /var/tmp/linux-drv/cryptoserver.ko
+  dst: /lib/modules/%KERNEL_VERSION%.x86_64/extra/cryptoserver.ko
+  file_info:
+    mode: 0644
